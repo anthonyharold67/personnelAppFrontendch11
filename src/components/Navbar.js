@@ -23,7 +23,7 @@ export default function NavBar() {
   const handleClose = (e) => {
     setAnchorEl(null);
     if (e.target.innerText=== 'Login') {
-      navigate('/login')
+      navigate('/')
     }else if (e.target.innerText === 'Sign Up') {
       navigate('/register')
     }else if (e.target.innerText === 'Logout'){
