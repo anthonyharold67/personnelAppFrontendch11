@@ -3,7 +3,7 @@ import {Outlet,Navigate, useLocation} from "react-router-dom"
 import {toastWarnNotify} from ".././helpers/ToastNotify"
 
 const PrivateRouter = () => {
-  let currentUser= true  
+  let currentUser= sessionStorage.getItem("username") || false 
   let location = useLocation() ;
 
   
