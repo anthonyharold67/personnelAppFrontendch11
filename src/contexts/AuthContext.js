@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {createContext, useDeferredValue, useState} from 'react'
+import { toastSuccessNotify } from '../helper/ToastNotify';
 
 export const AuthContext = createContext();
 
@@ -21,10 +22,14 @@ const AuthContextProvider = (props)=>{
       })
 
       if(res.data.token){
+        console.log(res)
         setMyKey(res.data.token)
-        setCurrentUser(res.data.userName)
-        sessionStorage.setItem('username',res.data.userName)
+        setCurrentUser(res.data.username)
+        sessionStorage.setItem('username',res.data.username)
         const myToken = window.btoa(res.data.token)
+        sessionStorage.setItem('token',myToken)
+        toastSuccessNotify('User registered successfully.')
+
       }
 
       
@@ -33,10 +38,59 @@ const AuthContextProvider = (props)=>{
     }
   }
 
+  const signIn = async (email,password,userName)=>{
+    try {
+
+      const res = await axios.post(`${url}users/auth/login/`,{
+        "email": email,
+        "username":userName,
+        "password":password
+      })
+      if(res.data.token){
+        console.log(res)
+        setMyKey(res.data.token)
+        setCurrentUser(res.data.user.username)
+        sessionStorage.setItem('username',res.data.user.username)
+        const myToken = window.btoa(res.data.token)
+        sessionStorage.setItem('token',myToken)
+        toastSuccessNotify('User login successfully.')
+      }
+
+      
+    } catch (error) {
+      
+    }
+  }
+
+  const logOut = async ()=>{
+    try {
+      var config = {
+        method: 'post',
+        url: 'http://127.0.0.1:8000/users/auth/logouts/',
+        headers: { 
+          'Authorization': `Token ${myKey}`, 
+        }
+      };
+      const res = await axios(config)
+      if (res.status === 200) {
+        setCurrentUser(false)
+        setMyKey(false)
+        sessionStorage.clear()
+      }
+      
+      
+    } catch (error) {
+      
+    }
+  }
+
+
  let value = {
     createUser,
     currentUser,
     myKey,
+    signIn,
+    logOut
  }
 
 

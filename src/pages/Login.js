@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 function Copyright(props) {
@@ -36,8 +37,11 @@ export default function Login() {
   const [email,setEmail]=useState()
   const [password,setPassword]=useState()
   const [userName,setUserName]=useState()
-  const handleSubmit = (event) => {
+  const {signIn} = React.useContext(AuthContext)
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    signIn(email,password,userName)
   };
   
 
