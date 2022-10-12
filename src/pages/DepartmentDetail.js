@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import { AuthContext } from '../contexts/AuthContext';
+import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
 
 
 
@@ -24,9 +25,9 @@ export default function DeparmentDetail() {
     const {myKey}= React.useContext(AuthContext)
     const isStaff=sessionStorage.getItem("is_staff") || false
     const [data,setData] = React.useState()
-    const [deparmentId,setId] = React.useState()
+    const [departmentId,setId] = React.useState()
     const navigate = useNavigate()
-    const getDepartments= async (str) =>{
+    const getDepartments= async () =>{
         try {
             const res = await axios.get(`http://127.0.0.1:8000/api/department/${str}/`,{headers:{'Authorization':`Token ${myKey}`}})
             console.log(res)
@@ -39,17 +40,24 @@ export default function DeparmentDetail() {
         }
     }
     React.useEffect(()=>{
-        getDepartments(str)
+        getDepartments()
     },[])
 
-    const handleDelete=(id)=>{
-
+    const handleDelete= async (id)=>{
+      try {
+        const res = await axios.delete(`http://127.0.0.1:8000/api/personal/${id}`,{headers:{'Authorization':`Token ${myKey}`}})
+        console.log(res)
+        toastSuccessNotify("Personel başarıyla silindi!")
+        getDepartments()
+      } catch (error) {
+        toastErrorNotify("Bu işlemi yapabilmen için daha çok çalışman lazım")
+      }
     }
     const handleEdit =()=>{
 
     }
     const handleClick = ()=>{
-      navigate("/create-personal",{state:{deparmentId}})
+      navigate("/create-personal",{state:{departmentId}})
     }
 
   return (

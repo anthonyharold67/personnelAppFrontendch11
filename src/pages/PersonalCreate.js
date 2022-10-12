@@ -17,6 +17,9 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import axios from 'axios';
+import { AuthContext } from '../contexts/AuthContext';
+import { toastSuccessNotify } from '../helper/ToastNotify';
 
 
 const theme = createTheme();
@@ -25,7 +28,9 @@ const theme = createTheme();
 
 export default function PersonalCreate() {
   const navigate = useNavigate()
-
+  const {myKey}= React.useContext(AuthContext)
+  const location = useLocation()
+  const {departmentId} = location.state
   const [firstName,setFirstName] = React.useState("")
   const [lastName,setLastName] = React.useState("")
   const [isStaffed,setIsStaffed] = React.useState(false)
@@ -33,8 +38,38 @@ export default function PersonalCreate() {
   const [gender,setGender] = React.useState("Male")
   const [salary,setSalary] = React.useState(1250)
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
+    let headersList = {
+      "Accept": "*/*",
+      "Authorization": `Token ${myKey}`,
+      "Content-Type": "application/json" 
+     }
+     
+     let bodyContent = JSON.stringify({
+         "first_name": firstName,
+         "last_name": lastName,
+         "is_staffed": isStaffed,
+         "title": title,
+         "gender": gender,
+         "salary": salary,
+         "department": departmentId
+     });
+     
+     let reqOptions = {
+       url: "http://127.0.0.1:8000/api/personal/",
+       method: "POST",
+       headers: headersList,
+       data: bodyContent,
+     }
+     
+     let response = await axios.request(reqOptions);
+     if(response.status === 201){
+      toastSuccessNotify("Personel başarıyla kaydedildi!")
+      navigate(-1)
+     }  
+     console.log(response.data);
+     
   }
 
 
