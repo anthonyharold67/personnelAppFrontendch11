@@ -4,7 +4,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
 import NavBar from '../components/Navbar'
-import DeparmentDetail from '../pages/DeparmentDetail'
+import DeparmentDetail from '../pages/DepartmentDetail'
 import PersonalCreate from '../pages/PersonalCreate'
 
 const AppRouter = () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import DeparmentTable from '../components/DeparmentTable';
+import DeparmentTable from '../components/DepartmentTable';
 
 const Home = () => {
 
