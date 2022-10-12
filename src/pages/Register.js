@@ -61,7 +61,7 @@ export default function Register() {
         onSubmit={(values,actions)=>{
           actions.resetForm()
           actions.setSubmitting(false)
-          createUser(values.email,values.password,values.firstName,values.lastName,values.userName)
+          createUser(values.email,values.password,values.firstName,values.lastName,values.userName,navigate)
         }}
         >
           {({values,handleChange,errors,touched,handleBlur})=>(

@@ -7,10 +7,11 @@ export const AuthContext = createContext();
 const url = "http://127.0.0.1:8000/"
 
 const AuthContextProvider = (props)=>{
-  const [currentUser,setCurrentUser] = useState(false);
-  const [myKey,setMyKey] = useState("")
+  const [currentUser,setCurrentUser] = useState(sessionStorage.getItem('username') || false);
+  let keys = sessionStorage.getItem('token')
+  const [myKey,setMyKey] = useState(keys && window.atob(keys))
 
-  const createUser = async (email,password,firstName,lastName,userName)=>{
+  const createUser = async (email,password,firstName,lastName,userName,navigate)=>{
     try {
       const res = await axios.post(`${url}users/auth/register/`,{
           "username": userName,
@@ -29,7 +30,7 @@ const AuthContextProvider = (props)=>{
         const myToken = window.btoa(res.data.token)
         sessionStorage.setItem('token',myToken)
         toastSuccessNotify('User registered successfully.')
-
+        navigate("/home")
       }
 
       
@@ -38,7 +39,7 @@ const AuthContextProvider = (props)=>{
     }
   }
 
-  const signIn = async (email,password,userName)=>{
+  const signIn = async (email,password,userName,navigate)=>{
     try {
       console.log(email)
       const res = await axios.post(`${url}users/auth/login/`,{
@@ -55,6 +56,7 @@ const AuthContextProvider = (props)=>{
         const myToken = window.btoa(res.data.key)
         sessionStorage.setItem('token',myToken)
         toastSuccessNotify('User login successfully.')
+        navigate("/home")
       }
 
       
@@ -63,7 +65,7 @@ const AuthContextProvider = (props)=>{
     }
   }
 
-  const logOut = async ()=>{
+  const logOut = async (navigate)=>{
     try {
       var config = {
         method: 'post',
@@ -79,6 +81,7 @@ const AuthContextProvider = (props)=>{
         setMyKey(false)
         sessionStorage.clear()
         toastSuccessNotify('User log out successfully.')
+        navigate("/")
       }
       
       
