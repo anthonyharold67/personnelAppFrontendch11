@@ -29,7 +29,8 @@ export default function DeparmentDetail() {
     const getDepartments= async (str) =>{
         try {
             const res = await axios.get(`http://127.0.0.1:8000/api/department/${str}/`,{headers:{'Authorization':`Token ${myKey}`}})
-            const rows= res.data[0].deparments.map((item,index)=> createData(index+1,item.days_since_joined,item.title,item.first_name,item.last_name,item.gender,item.salary,item.is_staffed,item.id) );
+            console.log(res)
+            const rows= res.data[0].departments.map((item,index)=> createData(index+1,item.days_since_joined,item.title,item.first_name,item.last_name,item.gender,item.salary,item.is_staffed,item.id) );
             setData(rows)
             setId(res.data[0].id)
         }
@@ -66,7 +67,7 @@ export default function DeparmentDetail() {
             <TableCell align="center">Gender</TableCell>
             <TableCell align="center">Salary</TableCell>
             <TableCell align="center">Is Staffed?</TableCell>
-            {isStaff &&  (
+            {isStaff !== "false" &&  (
             <>
                 <TableCell align="center">Edit</TableCell>
                 <TableCell align="center">Delete</TableCell>
@@ -92,7 +93,7 @@ export default function DeparmentDetail() {
               <TableCell align="center">{row.salary} $</TableCell>
               <TableCell align="center">{row.is_staffed ? "✅" : "❌"}</TableCell>
               {
-                isStaff && (
+                isStaff!== "false" && (
                     <>
                         <TableCell align="center" sx={{cursor: "pointer"}} onClick={handleEdit}><EditIcon/></TableCell>
                         <TableCell align="center" sx={{cursor: "pointer"}} onClick={()=>handleDelete(row.id)}><DeleteIcon/></TableCell>
@@ -105,7 +106,7 @@ export default function DeparmentDetail() {
       </Table>
     </TableContainer>
 
-   {isStaff && (<TableCell onClick={handleClick} sx={{backgroundColor: "darkslategray",color:"white"}}> Add Personal</TableCell>)}
+   {isStaff !== "false" && (<TableCell onClick={handleClick} sx={{backgroundColor: "darkslategray",color:"white"}}> Add Personal</TableCell>)}
     </div>
   );
 }
