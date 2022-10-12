@@ -1,6 +1,6 @@
 import React from 'react'
 import {Outlet,Navigate, useLocation} from "react-router-dom"
-import {toastWarnNotify} from ".././helpers/ToastNotify"
+import { toastSuccessNotify } from '../helper/ToastNotify';
 
 const PrivateRouter = () => {
   let currentUser= sessionStorage.getItem("username") || false 
