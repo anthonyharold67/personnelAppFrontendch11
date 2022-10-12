@@ -29,7 +29,7 @@ export default function DeparmentDetail() {
     const navigate = useNavigate()
     const getDepartments= async () =>{
         try {
-            const res = await axios.get(`http://anthonycw.pythonanywhere.com/api/department/${str}/`,{headers:{'Authorization':`Token ${myKey}`}})
+            const res = await axios.get(`https://anthonycw.pythonanywhere.com/api/department/${str}/`,{headers:{'Authorization':`Token ${myKey}`}})
             console.log(res)
             const rows= res.data[0].departments.map((item,index)=> createData(index+1,item.days_since_joined,item.title,item.first_name,item.last_name,item.gender,item.salary,item.is_staffed,item.id) );
             setData(rows)
@@ -45,7 +45,7 @@ export default function DeparmentDetail() {
 
     const handleDelete= async (id)=>{
       try {
-        const res = await axios.delete(`http://anthonycw.pythonanywhere.com/api/personal/${id}`,{headers:{'Authorization':`Token ${myKey}`}})
+        const res = await axios.delete(`https://anthonycw.pythonanywhere.com/api/personal/${id}`,{headers:{'Authorization':`Token ${myKey}`}})
         console.log(res)
         toastSuccessNotify("Personel başarıyla silindi!")
         getDepartments()

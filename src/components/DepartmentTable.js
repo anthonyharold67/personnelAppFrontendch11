@@ -23,7 +23,7 @@ export default function DepartmentTable() {
     
     const getDepartments= async (str) =>{
       try {
-          const res = await axios.get(`http://anthonycw.pythonanywhere.com/api/`,{headers:{'Authorization':`Token ${myKey}`}})
+          const res = await axios.get(`https://anthonycw.pythonanywhere.com/api/`,{headers:{'Authorization':`Token ${myKey}`}})
           const rows= res.data.map((item,index)=> createData(index+1,item.name,item.personal_count));
           setData(rows)
           console.log(res);
