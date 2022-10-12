@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import AppRouter from "./app-router/AppRouter"
+import AuthContextProvider from './contexts/AuthContext';
+import { ToastContainer } from "react-toastify";
+import PersonalContextProvider from "./contexts/PersonalContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{
+      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundRepeat: 'no-repeat',
+      backgroundColor: (t) =>
+        t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: "center",
+      // backgroundAttachment: "fixed",
+      height: "100vh",   
+      marginTop: 0
+    }}>
+    <AuthContextProvider>
+      <PersonalContextProvider>
+        <AppRouter />
+        <ToastContainer />
+      </PersonalContextProvider>
+    </AuthContextProvider>
     </div>
   );
 }
