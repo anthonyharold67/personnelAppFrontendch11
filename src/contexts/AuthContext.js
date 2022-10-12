@@ -34,31 +34,32 @@ const AuthContextProvider = (props)=>{
 
       
     } catch (error) {
-
+      console.log(error)
     }
   }
 
   const signIn = async (email,password,userName)=>{
     try {
-
+      console.log(email)
       const res = await axios.post(`${url}users/auth/login/`,{
         "email": email,
         "username":userName,
         "password":password
       })
-      if(res.data.token){
+      console.log(res)
+      if(res.data.key){
         console.log(res)
-        setMyKey(res.data.token)
+        setMyKey(res.data.key)
         setCurrentUser(res.data.user.username)
         sessionStorage.setItem('username',res.data.user.username)
-        const myToken = window.btoa(res.data.token)
+        const myToken = window.btoa(res.data.key)
         sessionStorage.setItem('token',myToken)
         toastSuccessNotify('User login successfully.')
       }
 
       
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
@@ -72,10 +73,12 @@ const AuthContextProvider = (props)=>{
         }
       };
       const res = await axios(config)
+      console.log(res)
       if (res.status === 200) {
         setCurrentUser(false)
         setMyKey(false)
         sessionStorage.clear()
+        toastSuccessNotify('User log out successfully.')
       }
       
       
@@ -83,7 +86,6 @@ const AuthContextProvider = (props)=>{
       
     }
   }
-
 
  let value = {
     createUser,
