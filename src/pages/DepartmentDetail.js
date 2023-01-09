@@ -45,7 +45,7 @@ export default function DeparmentDetail() {
 
     const handleDelete= async (id)=>{
       try {
-        const res = await axios.delete(`https://anthonycw.pythonanywhere.com/api/personal/${id}`,{headers:{'Authorization':`Token ${myKey}`}})
+        const res = await axios.delete(`https://anthonycw.pythonanywhere.com/api/personnel/${id}`,{headers:{'Authorization':`Token ${myKey}`}})
         console.log(res)
         toastSuccessNotify("Personel başarıyla silindi!")
         getDepartments()
@@ -57,7 +57,7 @@ export default function DeparmentDetail() {
 
     }
     const handleClick = ()=>{
-      navigate("/create-personal",{state:{departmentId}})
+      navigate("/create-personnel",{state:{departmentId}})
     }
 
   return (
