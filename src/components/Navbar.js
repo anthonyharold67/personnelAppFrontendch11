@@ -39,7 +39,7 @@ export default function NavBar() {
       <AppBar position="static" style={{cursor:"pointer"}} sx={{backgroundColor:"tomato"}}>
         <Toolbar>
             <Typography variant="h6" color="inherit" sx={{ flexGrow: 3,textAlign:"left"}} style={{marginLeft:"0px"}} onClick={()=>navigate("/home")} >
-              Clarusway's Personal List App
+              Clarusway's Personnel List App
             </Typography>
             {currentUser ? (
             <Typography variant="h6" component="div" sx={{ flexGrow: 1,textAlign:"end",paddingRight:"1rem"}} > 
