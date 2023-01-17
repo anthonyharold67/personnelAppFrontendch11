@@ -39,12 +39,11 @@ const AuthContextProvider = (props)=>{
     }
   }
 
-  const signIn = async (email,password,userName,navigate)=>{
+  const signIn = async (email,password,navigate)=>{
     try {
       console.log(email)
       const res = await axios.post(`${url}users/auth/login/`,{
         "email": email,
-        "username":userName,
         "password":password
       })
       console.log(res)

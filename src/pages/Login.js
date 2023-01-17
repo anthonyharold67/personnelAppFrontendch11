@@ -36,13 +36,12 @@ export default function Login() {
   const navigate = useNavigate()
   const [email,setEmail]=useState()
   const [password,setPassword]=useState()
-  const [userName,setUserName]=useState()
   const {signIn} = React.useContext(AuthContext)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log("aadsdasd")
-    signIn(email,password,userName,navigate)
+    signIn(email,password,navigate)
   };
   
 
@@ -73,21 +72,8 @@ export default function Login() {
               Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-                margin="normal"
-                
-                fullWidth
-                id="username"
-                label="User Name"
-                name="usernamel"
-                autoComplete="username"
-                onChange={(e)=>setUserName(e.target.value)}
-                required
-                autoFocus
-              />
               <TextField
                 margin="normal"
-                
                 fullWidth
                 id="email"
                 label="Email Address"
